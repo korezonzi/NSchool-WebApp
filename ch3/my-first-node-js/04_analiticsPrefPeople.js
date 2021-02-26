@@ -9,21 +9,19 @@ rl.on('line', lineString => {
   const year        = parseInt(columns[0]);
   const pref        = columns[2];
   const popu        = parseInt(columns[4]);
-  const TARGET_YEAR = [2000,2015];
-
-  if(TARGET_YEAR.includes(year)) {
+  if (year === 2010 || year === 2015) {
     let value = prefDataMap.get(pref);
-    if(!value) {
+    if (!value) {
       value = {
         popu10: 0,
-        pupu15: 0,
+        popu15: 0,
         change: null
       };
     }
-    if(year === 2010) {
+    if (year === 2010) {
       value.popu10 = popu;
     }
-    if(year === 2015) {
+    if (year === 2015) {
       value.popu15 = popu;
     }
     prefDataMap.set(pref, value);
@@ -32,7 +30,3 @@ rl.on('line', lineString => {
 rl.on('close', () => {
   console.log(prefDataMap);
 });
-/* これでもいける??
-rl.line = () => {
-  console.log(rl);
-} */
