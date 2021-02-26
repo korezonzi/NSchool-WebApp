@@ -28,5 +28,23 @@ rl.on('line', lineString => {
   }
 });
 rl.on('close', () => {
-  console.log(prefDataMap);
+  for(let [key, value] of prefDataMap) {
+    value.change = value.popu15 / value.popu10;
+  }
+  const rankingArray = Array.from(prefDataMap).sort((pair1, pair2) => {
+    return pair2[1].change - pair1[1].change;
+  });
+  const rankingStrings = rankingArray.map(([key, value]) => {
+    return (
+      key +
+      ':' +
+      value.popu10 +
+      '=>' +
+      value.popu15 +
+      '変化率' +
+      value.change
+    );
+  })
+  //console.log(Array.from(prefDataMap));
+  console.log(rankingStrings);
 });
